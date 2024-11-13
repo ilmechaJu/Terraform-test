@@ -4,12 +4,9 @@ variable "AWS_REGION" {
 variable "AWS_ACCESS_KEY" {}
 variable "AWS_SECRET_KEY" {}
 variable "APP_NAME" {
-  default = "dealver"
+  default = "FitNus"
 }
 
 variable "Environment" {
   default = "dev"
 }
-
-variable "DB_USER" {}
-variable "DB_PASSWORD" {}

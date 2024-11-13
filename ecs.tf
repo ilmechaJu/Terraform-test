@@ -15,14 +15,11 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   memory                   = "512"
   cpu                      = "256"
 
-  execution_role_arn = aws_iam_role.execution_role.arn
-  task_role_arn      = aws_iam_role.execution_role.arn
-
   container_definitions = <<DEFINITION
   [
     {
       "name": "${var.APP_NAME}-${var.Environment}-container",
-      "image": "${aws_ecr_repository.repository.repository_url}:latest",
+      "image": "fitnus:latest",
       "entryPoint": [],
       "essential": true,
       "portMappings": [
@@ -49,7 +46,7 @@ data "aws_ecs_task_definition" "main" {
 }
 
 
-resource "aws_ecs_service" "dealver" {
+resource "aws_ecs_service" "fitnus" {
   name                = "${var.APP_NAME}-${var.Environment}-service"
   cluster             = aws_ecs_cluster.ecs-cluster.id
   task_definition     = "${aws_ecs_task_definition.ecs_task_definition.family}:${max(aws_ecs_task_definition.ecs_task_definition.revision, data.aws_ecs_task_definition.main.revision)}"
